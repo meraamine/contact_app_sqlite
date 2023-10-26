@@ -1,6 +1,6 @@
 # contact_app_sqlite
 
-A new Flutter project.
+A new Flutter project for a contacts application with SQLite.
 
 ## Getting Started
 
