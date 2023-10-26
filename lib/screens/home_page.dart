@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: ListTile(
                                 leading: CircleAvatar(
                                   child: Icon(Icons.person),backgroundColor: Colors.pink[300]),
-                                  //child: Text(contacts.name[0]),),
+                                 //child: Text(contacts.name[0]),),
                                 title: Text(contacts.name),
                                 subtitle: Text(contacts.contact),
                                 trailing: IconButton(
