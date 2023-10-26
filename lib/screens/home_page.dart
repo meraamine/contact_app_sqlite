@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 200),
                     SizedBox(height: 20),
                     Text(
-                      "You don't have not contacts yet",
+                      "You don't have contacts yet",
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 18,
@@ -72,55 +72,86 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                        child: Stack(
+                          children: <Widget>[Container(
+                            height: 100,
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  color: Theme.of(context).colorScheme.outline,
+                                ),
+                                borderRadius: BorderRadius.all(Radius.circular(12)),
+                              ),
+                              elevation:10,
+                              color: Colors.white,
+                              shadowColor: Colors.black,
+                              //shape: ShapeBorder(),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  child: Icon(Icons.person),backgroundColor: Colors.pink[300]),
+                                  //child: Text(contacts.name[0]),),
+                                title: Text(contacts.name),
+                                subtitle: Text(contacts.contact),
+                                trailing: IconButton(
+                                  icon: Icon(color:Colors.pink[300],Icons.delete),
+                                  onPressed: () async {
+                                    await DBHelper.deleteContacts(contacts.id!);
+                                    setState(() {
+                                      //rebuild widget after delete
+                                    });
+                                  },
+                                ),
+                                // onTap: () async {
+                                //   debugPrint('Card tapped.');
+                                //   //tap on ListTile, for update
+                                //   final refresh = await Navigator.of(context)
+                                //       .push(MaterialPageRoute(
+                                //           builder: (_) => AddContacts(
+                                //                 contact: Contact(
+                                //                   id: contacts.id,
+                                //                   name: contacts.name,
+                                //                   contact: contacts.contact,
+                                //                   email: contacts.email,
+                                //                 ),
+                                //               )));
+                                //
+                                //   if (refresh) {
+                                //     setState(() {
+                                //       //if return true, rebuild whole widget
+                                //     });
+                                //   }
+                                // },
+                              ),
                             ),
-                            borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
-                          elevation:10,
-                          color: Colors.green,
-                          shadowColor: Colors.black,
-                          //shape: ShapeBorder(),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              child: Icon(Icons.person),backgroundColor: Colors.pink[300]),
-                              //child: Text(contacts.name[0]),),
-                            title: Text(contacts.name),
-                            subtitle: Text(contacts.contact),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () async {
-                                await DBHelper.deleteContacts(contacts.id!);
-                                setState(() {
-                                  //rebuild widget after delete
-                                });
-                              },
-                            ),
-                            onTap: () async {
-                              debugPrint('Card tapped.');
-                              //tap on ListTile, for update
-                              final refresh = await Navigator.of(context)
-                                  .push(MaterialPageRoute(
+                            Positioned(
+                                bottom: 15,
+                                right: 30,
+                                width: 25,
+                                height: 25,
+                                child: FloatingActionButton(backgroundColor:Colors.white24,onPressed: () async {
+                                  debugPrint('Card tapped.');
+                                  //tap on ListTile, for update
+                                  final refresh = await Navigator.of(context)
+                                      .push(MaterialPageRoute(
                                       builder: (_) => AddContacts(
-                                            contact: Contact(
-                                              id: contacts.id,
-                                              name: contacts.name,
-                                              contact: contacts.contact,
-                                              email: contacts.email,
-                                            ),
-                                          )));
+                                        contact: Contact(
+                                          id: contacts.id,
+                                          name: contacts.name,
+                                          contact: contacts.contact,
+                                          email: contacts.email,
+                                        ),
+                                      )));
 
-                              if (refresh) {
-                                setState(() {
-                                  //if return true, rebuild whole widget
-                                });
-                              }
-                            },
-                          ),
-                        ),
+                                  if (refresh) {
+                                    setState(() {
+                                      //if return true, rebuild whole widget
+                                    });
+                                  }
+                                },
+                                child: Icon(color:Colors.pink[300],Icons.edit))),
+                        ]),
                       ),
                     );
                   }).toList(),
